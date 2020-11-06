@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="inputs">
+    <button class="add" data-function="concat">add function</button>
+    <button class="build">build</button>
+  </div>
+  <div class="vScript"></div>
+  <script>
+let vScript = document.querySelector('.vScript')
+let functionCount = 0
+document.querySelector('.add').addEventListener('click', e=>{
+  let myFunc= document.querySelector("#sample").content.cloneNode(true)
+  vScript.appendChild(myFunc)
+  functionCount++
+  let nodi = vScript.querySelector(`.customizable:nth-child(${functionCount})>h5`)
+  nodi.innerText = e.currentTarget.dataset.function
+  nodi.dataset.function = e.currentTarget.dataset.function
+  nodi.classList.add(e.currentTarget.dataset.function)
+})
+document.querySelector('.build').addEventListener('click', e=>{
+  document.querySelectorAll('.customizable').forEach(el=>{
+    let tempData = []
+    el.querySelectorAll('input').forEach(val=>{
+      tempData.push(val.value)
+    })
+    console.log(eval(funcObj[el.dataset.function]))
+  })
+})
+let x = eval(`(ar)=>{return ar[0].concat(' ', ar[1])}`)
+let funcObj = {
+  concat: `(..ar)=>{return ar[0].concat(' ', ar[1])}`
+}
+function funcFunctions(a,b,c){
+  let args = arguments
+  return {
+    concat : (d, e)=>{
+    console.log('a')
+  }
+  }
+  
+}
+
+  </script>
+  <template id="sample">
+    <div class="customizable">
+      <h5>funcName</h5>
+      <input type="text">
+      <input type="text">
+    </div>
+  </template>
+</body>
+</html>

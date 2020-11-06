@@ -1,0 +1,63 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="litegraph.css">
+  <link rel="stylesheet" type="text/css" href="litegraph-editor.css">
+  <script type="text/javascript" src="litegraph.js"></script>
+  <script type="text/javascript" src="litegraph-editor.js"></script>
+</head>
+
+<body style='width:100%; height:100%'>
+  <canvas id='mycanvas' width='1024' height='720' style='border: 1px solid'></canvas>
+  <div class="output-div">
+
+  </div>
+  <script>
+    function createElement(nodeType, value){
+      let newElement = document.createElement(nodeType)
+      newElement.innerText = value
+      return newElement
+    }
+    function addEvListenner(node, eventType){
+      if(node != undefined)
+      return node.addEventListener(nodeType, eventAction =>{
+        return eventAction
+      })
+    }
+    function eventCallback(eventAction){
+      console.log(eventAction)
+    }
+    function appendTo(parentNode, childNode){
+      parentNode.appendChild(childNode)
+    }
+    function $selector$(selector){
+      return document.querySelector(selector)
+    }
+    LiteGraph.wrapFunctionAsNode("DOM/createElement", createElement, ["String","String"],"DomNode");
+    LiteGraph.wrapFunctionAsNode("DOM/addEvListenner", addEvListenner, ["String","String"],"DomAction");
+    LiteGraph.wrapFunctionAsNode("DOM/eventCallback", eventCallback, ["String","String"],"DomNode");
+    LiteGraph.wrapFunctionAsNode("DOM/appendTo", appendTo, ["DomNode","DomNode"]);
+    LiteGraph.wrapFunctionAsNode("DOM/$selector$", $selector$, ["String"], "DomNode");
+  </script>
+  <script>
+    var graph = new LGraph();
+
+    var canvas = new LGraphCanvas("#mycanvas", graph);
+  //Editor("#mycanvas")
+    var node_const = LiteGraph.createNode("basic/const");
+    node_const.pos = [200, 200];
+    graph.add(node_const);
+    node_const.setValue(4.5);
+
+    var node_watch = LiteGraph.createNode("basic/watch");
+    node_watch.pos = [700, 200];
+    graph.add(node_watch);
+
+    node_const.connect(0, node_watch, 0);
+
+    graph.start()
+    graph.stop()
+  </script>
+</body>
+
+</html>
